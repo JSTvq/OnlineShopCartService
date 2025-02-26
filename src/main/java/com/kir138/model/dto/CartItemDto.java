@@ -2,7 +2,6 @@ package com.kir138.model.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Builder
@@ -14,8 +13,7 @@ public class CartItemDto {
     private Long id;
     private Long productId;
     private Integer quantity;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Long userId;
 
     @Override
     public boolean equals(Object o) {
@@ -27,16 +25,5 @@ public class CartItemDto {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "CartItemDto{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
     }
 }

@@ -12,8 +12,6 @@ public class CartItemMapper {
                 .id(cartItem.getId())
                 .productId(cartItem.getProductId())
                 .quantity(cartItem.getQuantity())
-                .createdAt(cartItem.getCreatedAt())
-                .updatedAt(cartItem.getUpdatedAt())
                 .build();
     }
 }

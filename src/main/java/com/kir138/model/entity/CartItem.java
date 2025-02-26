@@ -21,8 +21,6 @@ public class CartItem {
     private Integer quantity;
     @ManyToOne(fetch = FetchType.LAZY)
     private Cart cart;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     @Override
     public boolean equals(Object o) {
@@ -34,16 +32,5 @@ public class CartItem {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "CartItem{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
     }
 }

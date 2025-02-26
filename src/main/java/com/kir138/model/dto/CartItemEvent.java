@@ -2,7 +2,6 @@ package com.kir138.model.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Builder
@@ -15,29 +14,17 @@ public class CartItemEvent {
 
     private Long productId;
     private Integer quantity;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Long userId;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        CartItemEvent that = (CartItemEvent) o;
-        return Objects.equals(cartId, that.cartId);
+        CartItemEvent event = (CartItemEvent) o;
+        return Objects.equals(cartId, event.cartId) && Objects.equals(productId, event.productId) && Objects.equals(quantity, event.quantity) && Objects.equals(userId, event.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(cartId);
-    }
-
-    @Override
-    public String toString() {
-        return "CartItemEvent{" +
-                "cartId=" + cartId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return Objects.hash(cartId, productId, quantity, userId);
     }
 }

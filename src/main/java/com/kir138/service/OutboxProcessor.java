@@ -1,13 +1,13 @@
 package com.kir138.service;
 
+import com.kir138.model.dto.ProductValidationResponse;
 import com.kir138.model.entity.OutboxEvent;
-import com.kir138.model.entity.OutboxStatus;
+import com.kir138.enumStatus.OutboxStatus;
 import com.kir138.repository.OutboxEventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,10 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OutboxProcessor {
     private final OutboxEventRepository outboxEventRepository;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, ProductValidationResponse> kafkaTemplate;
 
     @Scheduled(fixedDelay = 5000)
-    @Transactional
     public void processPendingEvents() {
         List<OutboxEvent> events = outboxEventRepository.findAllByStatus(OutboxStatus.PENDING);
         for (OutboxEvent event : events) {

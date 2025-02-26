@@ -1,8 +1,11 @@
 package com.kir138.model.entity;
 
+import com.kir138.enumStatus.OutboxStatus;
+import com.kir138.model.dto.ProductValidationResponse;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "outbox_events")
@@ -25,11 +28,10 @@ public class OutboxEvent {
     private String type;
 
     // Сериализованный JSON-пейлоуд, который будет отправлен
-    @Lob
-    private String payload;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb", nullable = false)
+    private ProductValidationResponse payload;
 
     @Enumerated(EnumType.STRING)
     private OutboxStatus status; // PENDING, SENT, FAILED
-
-    private LocalDateTime createdAt;
 }

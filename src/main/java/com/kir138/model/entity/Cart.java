@@ -23,10 +23,10 @@ public class Cart {
     @Builder.Default
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
+
     @Version
+    @Builder.Default
     private Integer version = 0;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     @Override
     public boolean equals(Object o) {
@@ -38,16 +38,5 @@ public class Cart {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", items=" + items +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
     }
 }

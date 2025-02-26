@@ -4,6 +4,7 @@ import com.kir138.model.dto.CartDto;
 import com.kir138.model.entity.Cart;
 import org.springframework.stereotype.Component;
 
+//@Mapper()
 @Component
 public class CartMapper {
 
@@ -11,8 +12,6 @@ public class CartMapper {
         return CartDto.builder()
                 .id(cart.getId())
                 .items(cart.getItems())
-                .createdAt(cart.getCreatedAt())
-                .updatedAt(cart.getUpdatedAt())
                 .build();
     }
 }
