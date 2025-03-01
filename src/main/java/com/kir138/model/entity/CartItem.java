@@ -19,7 +19,8 @@ public class CartItem {
     private Long id;
     private Long productId;
     private Integer quantity;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @Override

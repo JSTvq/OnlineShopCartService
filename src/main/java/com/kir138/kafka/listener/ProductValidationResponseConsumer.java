@@ -17,32 +17,19 @@ public class ProductValidationResponseConsumer {
 
     @KafkaListener(topics = "product-validation-response", groupId = "online-shop-group")
     @Transactional
-    public void listenProductValidationResponse(ConsumerRecord<String, ProductValidationResponse> consumerRecord,
-                                                    Acknowledgment ack) {
+    public void listenProductValidationResponse(ConsumerRecord<String,
+                                                            ProductValidationResponse> consumerRecord) {
+        /*public void listenProductValidationResponse(ConsumerRecord<String,
+                ProductValidationResponse> consumerRecord,
+                Acknowledgment ack) {*/
+        System.out.println("включается метод прослушки");
         try {
             ProductValidationResponse response = consumerRecord.value();
             productValidationResponseHandler.handler(response);
-            ack.acknowledge();
+            //ack.acknowledge();
+            System.out.println("метод успешно завершился");
         } catch (Exception e) {
             throw new RuntimeException("Failed to deserialize ProductValidationResponse", e);
         }
     }
 }
-/**
- * public class ProductServiceConsumer {
- *     private final AddCartItemHandler addCartItemHandler;
- *
- *     @KafkaListener(topics = "cart-item-added", groupId = "online-shop-group")
- *     public void listenCartItemEvent(ConsumerRecord<String, CartItemEvent> consumerRecord,
- *                                     Acknowledgment ack) {
- *         try {
- *             CartItemEvent event = consumerRecord.value();
- *             addCartItemHandler.handle(event);
- *
- *             ack.acknowledge();
- *         } catch (RuntimeException e) {
- *             log.error(e.getMessage());
- *         }
- *     }
- * }
- */

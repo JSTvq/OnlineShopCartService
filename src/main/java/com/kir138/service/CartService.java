@@ -79,7 +79,6 @@ public class CartService {
      */
 
     //добавить предмет(CartItem в корзину Cart)
-    @Transactional
     public void addItemToCart(Long cartId, Long productId, Integer quantity, Long userId) {
 
         Cart cart = cartRepository.findById(cartId)
