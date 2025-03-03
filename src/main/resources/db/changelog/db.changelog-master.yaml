@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-cart-table.sql
+
+  - include:
+      file: db/changelog/changeset/create-cartItem-table.sql
+
+  - include:
+      file: db/changelog/changeset/create-outbox-events-table.sql
