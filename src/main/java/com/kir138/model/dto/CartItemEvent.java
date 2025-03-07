@@ -10,17 +10,22 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItemEvent {
+
     private Long cartId;
 
     private Long productId;
+
     private Integer quantity;
+
     private Long userId;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CartItemEvent event = (CartItemEvent) o;
-        return Objects.equals(cartId, event.cartId) && Objects.equals(productId, event.productId) && Objects.equals(quantity, event.quantity) && Objects.equals(userId, event.userId);
+        return Objects.equals(cartId, event.cartId) && Objects.equals
+                (productId, event.productId) && Objects.equals
+                (quantity, event.quantity) && Objects.equals(userId, event.userId);
     }
 
     @Override

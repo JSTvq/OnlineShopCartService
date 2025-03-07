@@ -3,7 +3,6 @@ package com.kir138.kafka.handler;
 import com.kir138.model.dto.ProductValidationResponse;
 import com.kir138.model.entity.Cart;
 import com.kir138.model.entity.CartItem;
-import com.kir138.repository.CartItemRepository;
 import com.kir138.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +13,12 @@ import java.util.ArrayList;
 @Service
 @RequiredArgsConstructor
 public class ProductValidationResponseHandler {
+
     private final CartRepository cartRepository;
 
     @Transactional
     public void handler(ProductValidationResponse response) {
-        System.out.println("влючается метод хендлера корзины");
+        System.out.println("включается метод хендлера корзины");
         try {
             if (!response.isValid()) {
                 System.out.println("Product with ID " + response.getProductId() + " is not available!");
@@ -35,8 +35,8 @@ public class ProductValidationResponseHandler {
                         return cartRepository.save(newCart);
                     });
 
-            System.out.println("Колвоооооооооооооооооооооооооо " + response.getProductId());
-            System.out.println("Колвоооооооооооооооооооооооооо " + response.getQuantity());
+            System.out.println("Кол-во " + response.getProductId());
+            System.out.println("Кол-во " + response.getQuantity());
 
             CartItem cartItem = CartItem.builder()
                     .productId(response.getProductId())

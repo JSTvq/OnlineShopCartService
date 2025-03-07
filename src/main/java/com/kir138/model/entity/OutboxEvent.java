@@ -5,12 +5,17 @@ import com.kir138.model.dto.ProductValidationResponse;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "outbox_events")
-@Data
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class OutboxEvent {
@@ -19,6 +24,7 @@ public class OutboxEvent {
     private Long id;
 
     private String aggregateType; // Например, "Cart"
+
     private Long aggregateId;
 
     // Можно сохранить топик, в который должно быть отправлено сообщение
@@ -34,4 +40,10 @@ public class OutboxEvent {
 
     @Enumerated(EnumType.STRING)
     private OutboxStatus status; // PENDING, SENT, FAILED
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

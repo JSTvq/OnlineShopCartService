@@ -1,6 +1,5 @@
 package com.kir138.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kir138.mapper.CartMapper;
 import com.kir138.model.dto.CartDto;
 import com.kir138.model.dto.ProductValidationResponse;
@@ -27,7 +26,6 @@ public class CartService {
     //Добавьте логику установки значений полей createdAt, updatedAt
     private final CartRepository cartRepository;
     private final CartMapper cartMapper;
-    private final ObjectMapper objectMapper;
     private final OutboxEventRepository outboxEventRepository;
 
     public CartDto getCartById(Long id) {
@@ -37,46 +35,6 @@ public class CartService {
                 .findFirst()
                 .orElseThrow();
     }
-
-    /**
-     * @Transactional
-     *     public void addItemToCart(Long cartId, Long productId, Integer quantity, Long userId) {
-     *         Cart cart = cartRepository.findById(cartId)
-     *             .orElseGet(() -> cartRepository.save(
-     *                 Cart.builder()
-     *                     .userId(userId)
-     *                     .items(new ArrayList<>())
-     *                     .build()
-     *             ));
-     *
-     *         CartItemEvent event = CartItemEvent.builder()
-     *             .cartId(cartId)
-     *             .productId(productId)
-     *             .quantity(quantity)
-     *             .userId(userId)
-     *             .build();
-     *
-     *         try {
-     *             OutboxEvent outboxEvent = OutboxEvent.builder()
-     *                 .aggregateType("Cart")
-     *                 .aggregateId(cart.getId())
-     *                 .type("CartItemRequest")
-     *                 .topic("cart-item-added")
-     *                 .payload(ProductValidationResponse.builder()
-     *                     .cartId(cartId)
-     *                     .productId(productId)
-     *                     .userId(userId)
-     *                     .quantity(quantity)
-     *                     .build())
-     *                 .status(OutboxStatus.PENDING)
-     *                 .build();
-     *
-     *             outboxEventRepository.save(outboxEvent);
-     *         } catch (Exception e) {
-     *             throw new RuntimeException("Failed to serialize event", e);
-     *         }
-     *     }
-     */
 
     //добавить предмет(CartItem в корзину Cart)
     public void addItemToCart(Long cartId, Long productId, Integer quantity, Long userId) {
@@ -128,19 +86,19 @@ public class CartService {
                 .map(c -> {
                     c.setUserId(cart.getUserId());
                     c.setItems(cart.getItems());
+                    c.setUpdatedAt(cart.getUpdatedAt());
                     return cartRepository.save(c);
                 })
                 .orElseGet(() -> {
                     return cartRepository.save(Cart.builder()
                             .userId(cart.getUserId())
                             .items(cart.getItems())
+                            .createdAt(cart.getCreatedAt())
                             .build());
-
                 });
         return cartMapper.toMapper(savedCart);
     }
 
-    @Transactional
     public CartDto removeItemFromCart(CartItem item, Long cartId) {
         Cart cart = cartRepository.findById(cartId).orElseThrow();
         cart.getItems().removeIf(i -> i.getId().equals(item.getId()));

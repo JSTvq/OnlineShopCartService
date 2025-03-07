@@ -13,7 +13,9 @@ import java.util.Objects;
 @NoArgsConstructor
 public class CartDto {
     private Long id;
+
     private Long userId;
+
     private List<CartItem> items;
 
     @Override

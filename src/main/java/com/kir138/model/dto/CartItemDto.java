@@ -10,9 +10,13 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItemDto {
+
     private Long id;
+
     private Long productId;
+
     private Integer quantity;
+
     private Long userId;
 
     @Override
