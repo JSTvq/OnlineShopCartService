@@ -29,12 +29,12 @@ public class CartController {
         return ResponseEntity.ok("Item addition request sent to Kafka.");
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveCart")
     public CartDto saveOrUpdateCart(@RequestBody Cart cart) {
         return cartService.saveOrUpdateCart(cart);
     }
 
-    @DeleteMapping("/{id}/delete-item")
+    @DeleteMapping("/{id}")
     public CartDto removeItemFromCart(@RequestBody CartItem item, @PathVariable Long id) {
         return cartService.removeItemFromCart(item, id);
     }
