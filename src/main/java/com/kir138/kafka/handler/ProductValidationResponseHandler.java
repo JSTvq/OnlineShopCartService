@@ -20,20 +20,12 @@ public class ProductValidationResponseHandler {
     public void handler(ProductValidationResponse response) {
         System.out.println("включается метод хендлера корзины");
         try {
-            if (!response.isValid()) {
+            if (!response.getIsValid()) {
                 System.out.println("Product with ID " + response.getProductId() + " is not available!");
                 return;
             }
 
-            Cart cart = cartRepository.findById(response.getCartId())
-                    .orElseGet(() -> {
-                        Cart newCart = Cart.builder()
-                                .userId(response.getUserId())
-                                .items(new ArrayList<>())
-                                .build();
-                        System.out.println("Creating new cart: " + newCart);
-                        return cartRepository.save(newCart);
-                    });
+            Cart cart = cartRepository.findById(response.getCartId()).orElseThrow();
 
             System.out.println("Кол-во " + response.getProductId());
             System.out.println("Кол-во " + response.getQuantity());

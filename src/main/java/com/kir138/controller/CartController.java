@@ -20,12 +20,12 @@ public class CartController {
         return cartService.getCartById(id);
     }
 
-    @PutMapping("/{cartId}/add-item")
-    public ResponseEntity<String> addItemToCart(@PathVariable Long cartId,
-                                                @RequestParam Long productId,
+    @PutMapping("/add-item")
+    public ResponseEntity<String> addItemToCart(@RequestParam Long productId,
                                                 @RequestParam Integer quantity,
                                                 @RequestParam Long userId) {
-        cartService.addItemToCart(cartId, productId, quantity, userId);
+
+        cartService.addItemToCart(productId, quantity, userId);
         return ResponseEntity.ok("Item addition request sent to Kafka.");
     }
 

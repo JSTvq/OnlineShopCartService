@@ -5,5 +5,7 @@ create table if not exists outbox_events (
     topic varchar(100),
     type varchar(100),
     payload JSONB,
-    status varchar(50)
+    status varchar(50),
+    created_at timestamp,
+    updated_at timestamp
 );

@@ -1,6 +1,8 @@
 create table if not exists cart_item (
     id serial primary key,
-    product_id integer,
+    product_id bigint,
     quantity integer,
-    user_id integer
+    cart_id bigint,
+    created_at timestamp,
+    updated_at timestamp
 );

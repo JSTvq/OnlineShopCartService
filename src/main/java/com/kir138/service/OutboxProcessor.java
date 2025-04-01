@@ -20,7 +20,7 @@ public class OutboxProcessor {
     private final OutboxEventRepository outboxEventRepository;
     private final KafkaTemplate<String, ProductValidationResponse> kafkaTemplate;
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5_000)
     public void processPendingEvents() {
         List<OutboxEvent> events;
         Pageable pageable = Pageable.ofSize(100);

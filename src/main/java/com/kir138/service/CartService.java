@@ -37,9 +37,9 @@ public class CartService {
     }
 
     //добавить предмет(CartItem в корзину Cart)
-    public void addItemToCart(Long cartId, Long productId, Integer quantity, Long userId) {
+    public void addItemToCart(Long productId, Integer quantity, Long userId) {
 
-        Cart cart = cartRepository.findById(cartId)
+        Cart cart = cartRepository.findByUserId(userId)
                 .orElseGet(() -> cartRepository.save(
                         Cart.builder()
                                 .userId(userId)
@@ -54,7 +54,7 @@ public class CartService {
                     .type("CartItemRequest")
                     .topic("cart-item-added")
                     .payload(ProductValidationResponse.builder()
-                            .cartId(cartId)
+                            .cartId(cart.getId())
                             .productId(productId)
                             .userId(userId)
                             .quantity(quantity)
@@ -66,11 +66,6 @@ public class CartService {
         } catch (Exception e) {
             throw new RuntimeException("Ошибка сериализации события CartItemEvent", e);
         }
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public OutboxEvent saveOutboxEvent(OutboxEvent event) {
-        return outboxEventRepository.save(event);
     }
 
     public List<CartDto> getAllCarts() {

@@ -20,12 +20,12 @@ public class ProductValidationResponseConsumer {
     public void listenProductValidationResponse(ConsumerRecord<String,
                                                             ProductValidationResponse> consumerRecord,
                                                             Acknowledgment ack) {
-        System.out.println("включается метод прослушки");
+        System.out.println("включается метод прослушки listenProductValidationResponse класса ProductValidationResponseConsumer");
         try {
             ProductValidationResponse response = consumerRecord.value();
             productValidationResponseHandler.handler(response);
             ack.acknowledge();
-            System.out.println("метод успешно завершился");
+            System.out.println("метод listenProductValidationResponse класса ProductValidationResponseConsumer успешно завершился");
         } catch (Exception e) {
             throw new RuntimeException("Failed to deserialize ProductValidationResponse", e);
         }
