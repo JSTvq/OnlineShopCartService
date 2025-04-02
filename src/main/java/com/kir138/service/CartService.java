@@ -78,17 +78,15 @@ public class CartService {
     @Transactional
     public CartDto saveOrUpdateCart(Cart cart) {
         Cart savedCart = cartRepository.findById(cart.getId())
-                .map(c -> {
-                    c.setUserId(cart.getUserId());
-                    c.setItems(cart.getItems());
-                    c.setUpdatedAt(cart.getUpdatedAt());
-                    return cartRepository.save(c);
+                .map(existing -> {
+                    existing.setUserId(cart.getUserId());
+                    existing.setItems(cart.getItems());
+                    return cartRepository.save(existing);
                 })
                 .orElseGet(() -> {
                     return cartRepository.save(Cart.builder()
                             .userId(cart.getUserId())
                             .items(cart.getItems())
-                            .createdAt(cart.getCreatedAt())
                             .build());
                 });
         return cartMapper.toMapper(savedCart);

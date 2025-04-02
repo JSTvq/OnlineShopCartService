@@ -18,6 +18,7 @@ import java.util.List;
 public class OutboxProcessor {
 
     private final OutboxEventRepository outboxEventRepository;
+
     private final KafkaTemplate<String, ProductValidationResponse> kafkaTemplate;
 
     @Scheduled(fixedDelay = 5_000)
@@ -34,7 +35,7 @@ public class OutboxProcessor {
                     // Если отправка прошла успешно, меняем статус на SENT.
                     event.setStatus(OutboxStatus.SENT);
                     outboxEventRepository.save(event);
-                } catch (Exception ex) {
+                } catch (RuntimeException ex) {
                     event.setStatus(OutboxStatus.FAILED);
                     outboxEventRepository.save(event);
                 }

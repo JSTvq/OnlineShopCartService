@@ -126,6 +126,26 @@
                 </executions>
             </plugin>
 
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <version>4.8.3.0</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase> <!-- Запуск при `mvn verify` -->
+                                <goals>
+                                    <goal>check</goal> <!-- Проверка на ошибки -->
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <effort>Max</effort> <!-- Уровень детализации -->
+                            <threshold>Low</threshold> <!-- Порог ошибок -->
+                            <xmlOutput>true</xmlOutput> <!-- XML-отчет -->
+                            <htmlOutput>true</htmlOutput> <!-- HTML-отчет -->
+                        </configuration>
+                    </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

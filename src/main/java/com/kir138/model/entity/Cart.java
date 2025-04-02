@@ -25,6 +25,9 @@ public class Cart {
 
     private Long userId;
 
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @Builder.Default
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> items = new ArrayList<>();
@@ -38,6 +41,14 @@ public class Cart {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public List<CartItem> getItems() {
+        return new ArrayList<>(items);
+    }
+
+    public void setItems(List<CartItem> items) {
+        this.items = items != null ? new ArrayList<>(items) : new ArrayList<>();
+    }
 
     @Override
     public boolean equals(Object o) {
