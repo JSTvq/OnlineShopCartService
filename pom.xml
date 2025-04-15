@@ -17,8 +17,8 @@
     <properties>
         <java.version>21</java.version>
         <testcontainers.version>1.20.6</testcontainers.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
         <liquibase.version>4.31.1</liquibase.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -50,6 +50,16 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
+            <version>3.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
@@ -59,16 +69,6 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-63</artifactId>
-            <version>3.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
         </dependency>
 
         <!-- Testcontainers -->
@@ -126,25 +126,25 @@
                 </executions>
             </plugin>
 
-                    <plugin>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs-maven-plugin</artifactId>
-                        <version>4.8.3.0</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase> <!-- Запуск при `mvn verify` -->
-                                <goals>
-                                    <goal>check</goal> <!-- Проверка на ошибки -->
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <effort>Max</effort> <!-- Уровень детализации -->
-                            <threshold>Low</threshold> <!-- Порог ошибок -->
-                            <xmlOutput>true</xmlOutput> <!-- XML-отчет -->
-                            <htmlOutput>true</htmlOutput> <!-- HTML-отчет -->
-                        </configuration>
-                    </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.8.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase> <!-- Запуск при `mvn verify` -->
+                        <goals>
+                            <goal>check</goal> <!-- Проверка на ошибки -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <effort>Max</effort> <!-- Уровень детализации -->
+                    <threshold>Low</threshold> <!-- Порог ошибок -->
+                    <xmlOutput>true</xmlOutput> <!-- XML-отчет -->
+                    <htmlOutput>true</htmlOutput> <!-- HTML-отчет -->
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>

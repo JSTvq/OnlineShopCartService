@@ -19,13 +19,13 @@ public class CartDto {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private List<CartItem> items = new ArrayList<>();
+    private List<CartItemDto> items = new ArrayList<>();
 
-    public List<CartItem> getItems() {
+    public List<CartItemDto> getItems() {
         return new ArrayList<>(items);
     }
 
-    public void setItems(List<CartItem> items) {
+    public void setItems(List<CartItemDto> items) {
         this.items = items != null ? new ArrayList<>(items) : new ArrayList<>();
     }
 

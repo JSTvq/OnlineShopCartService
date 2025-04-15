@@ -17,7 +17,7 @@ public class CartItemDto {
 
     private Integer quantity;
 
-    private Long userId;
+    //private Long cartId;
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,6 @@
 package com.kir138.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,11 +26,11 @@ public class Cart {
 
     private Long userId;
 
-
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @Builder.Default
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<CartItem> items = new ArrayList<>();
 
     @Version
@@ -52,9 +53,10 @@ public class Cart {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Cart cart = (Cart) o;
-        return Objects.equals(id, cart.id);
+        if (this == o) return true;
+        if (!(o instanceof Cart)) return false;
+        Cart other = (Cart) o;
+        return id != null && id.equals(other.getId());
     }
 
     @Override

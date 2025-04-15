@@ -1,5 +1,6 @@
 package com.kir138.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,6 +28,7 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
+    @JsonBackReference
     private Cart cart;
 
     @CreationTimestamp
@@ -37,9 +39,10 @@ public class CartItem {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        CartItem cartItem = (CartItem) o;
-        return Objects.equals(id, cartItem.id);
+        if (this == o) return true;
+        if (!(o instanceof CartItem)) return false;
+        CartItem other = (CartItem) o;
+        return id != null && id.equals(other.getId());
     }
 
     @Override
